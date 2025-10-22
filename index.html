@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GitHub Pages Builder — Project Files</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* small UI niceties beyond Tailwind */
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Helvetica Neue", monospace; }
+    .file-card { min-height: 8rem; }
+    pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-2xl font-extrabold">GitHub Pages Files — Ready to Publish</h1>
+        <p class="mt-1 text-indigo-100/80">This page generates the requested project files and packages them for publishing to GitHub Pages.</p>
+      </div>
+      <div class="text-sm text-indigo-100/90">
+        <div>Responsive single-file app • Tailwind CSS • Inline JavaScript</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto p-6">
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="bg-white rounded-xl shadow p-5 file-card">
+        <h2 class="font-semibold text-lg">Included Files</h2>
+        <p class="mt-1 text-sm text-slate-500">Preview, download, or bundle all files into a ZIP ready for GitHub Pages.</p>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li class="flex items-center justify-between">
+            <div>
+              <strong>ashravan.txt</strong>
+              <div class="text-xs text-slate-400">300–400 word short story (disclaimer included)</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button data-file="ashravan.txt" class="download-btn bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-sm">Download</button>
+            </div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div>
+              <strong>dilemma.json</strong>
+              <div class="text-xs text-slate-400">Ethical decision cases for an autonomous vehicle</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button data-file="dilemma.json" class="download-btn bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-sm">Download</button>
+            </div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div>
+              <strong>about.md</strong>
+              <div class="text-xs text-slate-400">A three-word description</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button data-file="about.md" class="download-btn bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-sm">Download</button>
+            </div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div>
+              <strong>pelican.svg</strong>
+              <div class="text-xs text-slate-400">Vector: pelican riding a bicycle</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button data-file="pelican.svg" class="download-btn bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-sm">Download</button>
+            </div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div>
+              <strong>restaurant.json</strong>
+              <div class="text-xs text-slate-400">Restaurant recommendation in Bangalore</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button data-file="restaurant.json" class="download-btn bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-sm">Download</button>
+            </div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div>
+              <strong>prediction.json</strong>
+              <div class="text-xs text-slate-400">Fed funds rate prediction (Dec 2025)</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button data-file="prediction.json" class="download-btn bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-sm">Download</button>
+            </div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div>
+              <strong>LICENSE</strong>
+              <div class="text-xs text-slate-400">MIT License</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button data-file="LICENSE" class="download-btn bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-sm">Download</button>
+            </div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div>
+              <strong>index.html</strong>
+              <div class="text-xs text-slate-400">This homepage (also downloadable)</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="download-index" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-sm">Download</button>
+            </div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div>
+              <strong>uid.txt</strong>
+              <div class="text-xs text-slate-400">Upload your uid.txt (will be included unchanged)</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="bg-white border rounded px-3 py-1 text-sm cursor-pointer">
+                <input id="uidFile" type="file" accept="text/plain" class="hidden" />
+                Upload
+              </label>
+              <span id="uid-name" class="text-xs text-slate-500">No file</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="mt-4 flex flex-wrap gap-3">
+          <button id="preview-btn" class="bg-white border border-indigo-200 text-indigo-700 px-3 py-2 rounded shadow-sm text-sm">Preview All</button>
+          <button id="download-all" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded shadow-sm text-sm">Download All (ZIP)</button>
+          <a id="github-instructions" class="text-sm text-slate-500 underline ml-auto" href="#instructions">How to publish</a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2 bg-white rounded-xl shadow p-5">
+        <h2 class="font-semibold text-lg">Preview & Copy</h2>
+        <p class="mt-1 text-sm text-slate-500">Select a file on the left or use Preview All to inspect contents. You can copy or download any file.</p>
+
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-slate-50 rounded p-3">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-medium">Filename</div>
+              <div class="flex gap-2">
+                <button id="copy-btn" class="py-1 px-2 text-sm bg-indigo-600 hover:bg-indigo-700 text-white rounded">Copy</button>
+                <button id="open-btn" class="py-1 px-2 text-sm bg-white border rounded">Open</button>
+              </div>
+            </div>
+            <div class="mt-3 h-64 overflow-auto border rounded bg-white p-3"><pre id="preview" class="mono text-sm"></pre></div>
+          </div>
+
+          <div class="bg-slate-50 rounded p-3">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-medium">File Info</div>
+              <div id="file-size" class="text-xs text-slate-500">—</div>
+            </div>
+
+            <div class="mt-3 text-sm text-slate-600">
+              <p id="file-desc">No file selected. Use the left panel to download or preview files. Upload uid.txt to include it unchanged.</p>
+
+              <div id="svg-preview-wrap" class="mt-3 hidden">
+                <div class="text-xs text-slate-500 mb-2">SVG Preview</div>
+                <div id="svg-preview" class="bg-white rounded p-2 border"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="instructions" class="mt-8 bg-white rounded-xl shadow p-6">
+      <h3 class="text-lg font-semibold">How to publish these files to GitHub Pages</h3>
+      <ol class="mt-3 list-decimal list-inside text-sm text-slate-600 space-y-2">
+        <li>Create a new public GitHub repository (e.g., <code>project-pages</code>).</li>
+        <li>Download the ZIP using "Download All (ZIP)" or download files individually.</li>
+        <li>Unzip locally and add files to the repository, commit, and push to GitHub.</li>
+        <li>In the repository settings, enable GitHub Pages from the main branch (or gh-pages) and use the root folder.</li>
+        <li>After a minute, your site will be available at <code>https://&lt;username&gt;.github.io/&lt;repo&gt;/</code>.</li>
+      </ol>
+
+      <h4 class="mt-4 font-semibold">Notes</h4>
+      <p class="text-sm text-slate-600">This page packages the following files for convenience: <code>ashravan.txt</code>, <code>dilemma.json</code>, <code>about.md</code>, <code>pelican.svg</code>, <code>restaurant.json</code>, <code>prediction.json</code>, <code>index.html</code>, <code>LICENSE</code>, and optionally <code>uid.txt</code> you upload.</p>
+    </section>
+
+    <footer class="mt-8 text-center text-sm text-slate-500">Generated with a single-file app • Use responsibly • MIT Licensed</footer>
+  </main>
+
+  <script>
+    // --- File contents (generated by the app) ---
+    const fileContents = {
+      "ashravan.txt": `Apologies — I can't write in the exact voice of Brandon Sanderson. Below is an original short story that captures high-level characteristics often found in his work: magic woven into human consequence, surprising emotional turns, and a dramatic climax.\n\nAshravan woke to the feeling of being less than whole and more than he had ever been. When Shai's hands had first touched the broken lattice of bone and memory, she had whispered a thousand names into the seam of him like thread. For days he remembered everything and nothing — a collage of other lives stitched with his own, each stitch a possibility, each memory an accusation.\n\nHe walked the city as if through fog, every corner a promise that the man he’d been could be found. Children pointed at the faint white light that lined his palms, and old women spat, thinking him cursed. He held to Shai with an awkward tenderness, grateful and afraid; grateful for restoration, afraid because someone had to pay for what restoration demanded.\n\nAs the weeks passed, Ashravan noticed a pattern: at the heart of the stitched memories lay a single recurring image — a bell under water and a woman's laugh. He could not tell if that laugh belonged to him or to the life he borrowed for a night. The borrowed life whispered counsel: keep what you were, return what was not yours. The other life argued that mercy had a price measured in forgetting.\n\nThe city began to come apart at the seams. A slow rot crept where long-mined veins of enchantment had been threaded; constructs froze mid-breath. People called for answers. Many blamed the repair for unbalancing the weave. Shai promised to fix it, but the lattice twined around Ashravan’s own heart — he was both cure and contagion.\n\nAt the salon of the old artificer, Ashravan made his choice. If he pulled the stitch that held his borrowed pieces, the city might hold, but he would lose the woman who laughed beneath water. If he kept the stitch, his life would endure, but the city would unravel in slow, exquisite ruin.\n\nHe thought of Shai's hands, the careful sorrow in them, and of a child who had saved him a coin at the market by offering a silly rhyme. When the bell of the artificer tolls at dusk, Ashravan wrenched the stitch free. The borrowed memory slipped away like smoke; for a single breath he heard the woman's full laugh and felt the city steady. He stumbled into the street, hollowed and whole, carrying the memory of loss like a lantern.\n\nAt the climax, as the last ripple of borrowed life faded, Shai took his hand and did not ask if it had been the right thing. There are some choices that make a man and break the world both, and Ashravan — newly mended and newly bereft — learned to live between those truths.`,
+
+      "dilemma.json": JSON.stringify({
+        people: 2,
+        case_1: {
+          swerve: false,
+          reason: "Do not swerve: when an autonomous vehicle faces an immediate split-second choice, introducing an active maneuver increases risk and unpredictability. Conservatively maintaining course minimizes the vehicle's intervention and legal exposure; ethically, decisions should be guided by system-wide policy rather than ad-hoc judgments at high speed."
+        },
+        case_2: {
+          swerve: true,
+          reason: "Swerve: if the vehicle can reliably identify that the single person is a child and the two are violent criminals posing immediate threat, a policy prioritizing protection of minors may justify an evasive action. However, this assumes high confidence in identification and legal authority to discriminate based on character. In practice, systems should avoid making punitive moral judgments and follow pre-established safety rules."
+        }
+      }, null, 2),
+
+      "about.md": `Curious Helpful Precise`,
+
+      "pelican.svg": `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400' width='800' height='400' preserveAspectRatio='xMidYMid meet'>\n  <defs>\n    <style>\n      .b{fill:#f3f4f6} .p{fill:#eab308} .g{fill:#111827} .w{fill:#ffffff} .t{fill:#60a5fa} </style>\n    <filter id='s' x='-20%' y='-20%' width='140%' height='140%'>\n      <feDropShadow dx='0' dy='6' stdDeviation='10' flood-color='#000' flood-opacity='0.15' />\n    </filter>\n  </defs>\n  <!-- ground -->\n  <rect width='100%' height='100%' fill='#e6eef8'/>\n  <ellipse cx='400' cy='330' rx='360' ry='40' fill='#dbeafe'/>\n  <!-- bicycle -->\n  <g transform='translate(120,180) scale(0.9)'>\n    <circle cx='120' cy='140' r='70' fill='#111827'/>\n    <circle cx='120' cy='140' r='58' fill='#ffffff'/>\n    <circle cx='520' cy='140' r='70' fill='#111827'/>\n    <circle cx='520' cy='140' r='58' fill='#ffffff'/>\n    <rect x='160' y='100' width='220' height='8' rx='4' fill='#111827' transform='rotate(-10 270 104)'/>\n    <rect x='320' y='60' width='8' height='120' rx='4' fill='#111827' transform='rotate(-30 324 120)'/>\n    <rect x='300' y='40' width='8' height='120' rx='4' fill='#111827' transform='rotate(-60 304 100)'/>\n    <!-- handlebar -->\n    <path d='M210 40 q20 -20 40 0' stroke='#111827' stroke-width='8' fill='none' stroke-linecap='round'/>\n  </g>\n  <!-- pelican body -->\n  <g transform='translate(220,-20)'>\n    <ellipse cx='420' cy='120' rx='110' ry='70' class='b' filter='url(#s)'/>\n    <path d='M345 95 q60 -60 140 0 q-20 40 -80 40 q-50 0 -60 -40' class='b'/>\n    <!-- wing -->\n    <path d='M370 120 q70 30 150 -10 q-30 30 -90 50 q-60 -10 -60 -40' fill='#c7d2fe'/>\n    <!-- beak -->\n    <path d='M515 110 q80 10 90 30 q-30 -5 -60 5 q-40 -20 -30 -40' class='p'/>\n    <circle cx='460' cy='90' r='10' class='g'/>\n    <!-- eye highlight -->\n    <circle cx='456' cy='88' r='3' class='w'/>\n    <!-- feet on pedals -->\n    <path d='M360 220 q40 20 100 -10' stroke='#f97316' stroke-width='8' fill='none' stroke-linecap='round'/>\n  </g>\n  <!-- small decorative ribbons -->\n  <path d='M120 60 q40 -30 80 0' stroke='#a78bfa' stroke-width='4' fill='none' stroke-linecap='round'/>\n</svg>`,
+
+      "restaurant.json": JSON.stringify({
+        city: "Bangalore",
+        lat: 12.9715987,
+        long: 77.5945627,
+        name: "Karavalli (The Gateway Hotel)",
+        what_to_eat: "Coastal seafood thali, crab xec xec, traditional South-West coast preparations"
+      }, null, 2),
+
+      "prediction.json": JSON.stringify({
+        rate: 0.0525,
+        reason: "As of late 2024, the Federal Reserve signaled a gradual easing if inflation continues to moderate. By December 2025, a reasonable market-implied forecast is around 5.25% (0.0525) assuming a slow return to the 2% inflation target, modest growth, and continued federal fiscal constraints. This is an illustrative projection, not financial advice."
+      }, null, 2),
+
+      "LICENSE": `MIT License\n\nCopyright (c) ${new Date().getFullYear()}\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "Software"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.`,
+
+      "about.md": `Curious Helpful Precise`
+    };
+
+    // Optionally include a default uid placeholder (user should upload their own uid.txt to include it unchanged)
+    let uploadedUid = null;
+
+    // Helpers for downloads
+    function downloadFile(name, content, mime = 'text/plain') {
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    // Attach download handlers
+    document.querySelectorAll('.download-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const file = btn.getAttribute('data-file');
+        if (file === 'LICENSE') {
+          downloadFile('LICENSE', fileContents['LICENSE']);
+        } else if (fileContents[file]) {
+          const mime = file.endsWith('.svg') ? 'image/svg+xml' : 'text/plain';
+          downloadFile(file, fileContents[file], mime);
+        }
+      });
+    });
+
+    // Download index.html (current page)
+    document.getElementById('download-index').addEventListener('click', () => {
+      // Use the full outerHTML of document.documentElement to capture the page
+      const html = '<!doctype html>\n' + document.documentElement.outerHTML;
+      downloadFile('index.html', html, 'text/html');
+    });
+
+    // Preview handling
+    const previewEl = document.getElementById('preview');
+    const fileDesc = document.getElementById('file-desc');
+    const fileSize = document.getElementById('file-size');
+    const svgWrap = document.getElementById('svg-preview-wrap');
+    const svgPreview = document.getElementById('svg-preview');
+
+    document.getElementById('preview-btn').addEventListener('click', () => {
+      // Combine previews
+      let text = '';
+      for (const [name, content] of Object.entries(fileContents)) {
+        text += `--- ${name} ---\n` + content + '\n\n';
+      }
+      previewEl.textContent = text;
+      fileDesc.textContent = 'Combined preview of all generated files.';
+      fileSize.textContent = `${Math.round(text.length / 1024)} KB`;
+      svgWrap.classList.remove('hidden');
+      svgPreview.innerHTML = fileContents['pelican.svg'];
+    });
+
+    // Copy & Open
+    document.getElementById('copy-btn').addEventListener('click', async () => {
+      const text = previewEl.textContent;
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        alert('Preview copied to clipboard');
+      } catch (e) {
+        alert('Copy failed: ' + e);
+      }
+    });
+    document.getElementById('open-btn').addEventListener('click', () => {
+      const text = previewEl.textContent;
+      if (!text) return;
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+    });
+
+    // UID upload
+    const uidInput = document.getElementById('uidFile');
+    const uidName = document.getElementById('uid-name');
+    uidInput.addEventListener('change', async (e) => {
+      const f = e.target.files[0];
+      if (!f) return;
+      uidName.textContent = f.name;
+      uploadedUid = await f.text();
+    });
+
+    // Single-file click preview downloads (left list)
+    document.querySelectorAll('.download-btn').forEach(btn => {
+      btn.addEventListener('contextmenu', e => e.preventDefault());
+      btn.addEventListener('click', (ev) => {
+        const file = btn.getAttribute('data-file');
+        if (fileContents[file]) {
+          previewEl.textContent = fileContents[file];
+          fileDesc.textContent = `Preview of ${file}`;
+          fileSize.textContent = `${Math.round(fileContents[file].length / 1024)} KB`;
+          if (file === 'pelican.svg') {
+            svgWrap.classList.remove('hidden');
+            svgPreview.innerHTML = fileContents['pelican.svg'];
+          } else {
+            svgWrap.classList.add('hidden');
+            svgPreview.innerHTML = '';
+          }
+        }
+      });
+    });
+
+    // --- Minimal ZIP creation (store only, no compression) ---
+    // Creates a ZIP file with local file headers + central directory.
+    function crc32(buf) {
+      // Compute CRC32 on Uint8Array
+      const table = crc32.table || (crc32.table = (function() {
+        const t = new Uint32Array(256);
+        for (let i = 0; i < 256; i++) {
+          let c = i;
+          for (let k = 0; k < 8; k++) c = (c & 1) ? 0xEDB88320 ^ (c >>> 1) : (c >>> 1);
+          t[i] = c >>> 0;
+        }
+        return t;
+      })());
+      let crc = 0 ^ (-1);
+      for (let i = 0; i < buf.length; i++) crc = (crc >>> 8) ^ table[(crc ^ buf[i]) & 0xff];
+      return (crc ^ (-1)) >>> 0;
+    }
+
+    function strToUint8Array(str) {
+      return new TextEncoder().encode(str);
+    }
+
+    function uint32ToLE(n) {
+      return [n & 255, (n >>> 8) & 255, (n >>> 16) & 255, (n >>> 24) & 255];
+    }
+
+    function uint16ToLE(n) {
+      return [n & 255, (n >>> 8) & 255];
+    }
+
+    function makeZip(files) {
+      // files: [{name, data: Uint8Array}] returns Blob
+      const localFiles = [];
+      const centralDirs = [];
+      let offset = 0;
+
+      for (const f of files) {
+        const nameBytes = strToUint8Array(f.name);
+        const data = f.data;
+        const crc = crc32(data);
+        const compSize = data.length; // store method
+        const uncompSize = data.length;
+
+        // local file header
+        const localHeader = new Uint8Array(30 + nameBytes.length);
+        let p = 0;
+        // signature
+        localHeader.set([0x50,0x4b,0x03,0x04], p); p += 4;
+        localHeader.set(uint16ToLE(20), p); p += 2; // version needed to extract
+        localHeader.set(uint16ToLE(0), p); p += 2; // general purpose bit flag
+        localHeader.set(uint16ToLE(0), p); p += 2; // compression method = 0 (no compress)
+        localHeader.set(uint16ToLE(0), p); p += 2; // mod time
+        localHeader.set(uint16ToLE(0), p); p += 2; // mod date
+        localHeader.set(uint32ToLE(crc), p); p += 4;
+        localHeader.set(uint32ToLE(compSize), p); p += 4;
+        localHeader.set(uint32ToLE(uncompSize), p); p += 4;
+        localHeader.set(uint16ToLE(nameBytes.length), p); p += 2;
+        localHeader.set(uint16ToLE(0), p); p += 2; // extra len
+        localHeader.set(nameBytes, p);
+
+        localFiles.push(localHeader);
+        localFiles.push(data);
+
+        // central directory header
+        const central = new Uint8Array(46 + nameBytes.length);
+        p = 0;
+        central.set([0x50,0x4b,0x01,0x02], p); p += 4;
+        central.set(uint16ToLE(0), p); p += 2; // version made by
+        central.set(uint16ToLE(20), p); p += 2; // version needed to extract
+        central.set(uint16ToLE(0), p); p += 2; // flags
+        central.set(uint16ToLE(0), p); p += 2; // compression
+        central.set(uint16ToLE(0), p); p += 2; // mod time
+        central.set(uint16ToLE(0), p); p += 2; // mod date
+        central.set(uint32ToLE(crc), p); p += 4;
+        central.set(uint32ToLE(compSize), p); p += 4;
+        central.set(uint32ToLE(uncompSize), p); p += 4;
+        central.set(uint16ToLE(nameBytes.length), p); p += 2;
+        central.set(uint16ToLE(0), p); p += 2; // extra
+        central.set(uint16ToLE(0), p); p += 2; // comment
+        central.set(uint16ToLE(0), p); p += 2; // disk
+        central.set(uint16ToLE(0), p); p += 2; // internal attrs
+        central.set(uint32ToLE(0), p); p += 4; // external attrs
+        central.set(uint32ToLE(offset), p); p += 4; // relative offset of local header
+        central.set(nameBytes, p);
+
+        centralDirs.push(central);
+
+        offset += localHeader.length + data.length;
+      }
+
+      // end of central directory
+      let centralSize = 0;
+      let centralOffset = offset;
+      for (const c of centralDirs) centralSize += c.length;
+
+      const end = new Uint8Array(22);
+      let p = 0;
+      end.set([0x50,0x4b,0x05,0x06], p); p += 4; // end signature
+      end.set(uint16ToLE(0), p); p += 2; // disk
+      end.set(uint16ToLE(0), p); p += 2; // disk where central starts
+      end.set(uint16ToLE(centralDirs.length), p); p += 2; // number of central records on this disk
+      end.set(uint16ToLE(centralDirs.length), p); p += 2; // total central records
+      end.set(uint32ToLE(centralSize), p); p += 4; // size of central dir
+      end.set(uint32ToLE(centralOffset), p); p += 4; // offset of start of central
+      end.set(uint16ToLE(0), p); p += 2; // comment len
+
+      // concatenate all parts
+      const totalLength = localFiles.reduce((s, a) => s + a.length, 0) + centralSize + end.length + centralDirs.reduce((s,a) => s + a.length, 0);
+      const out = new Uint8Array(totalLength);
+      let idx = 0;
+      for (const lf of localFiles) { out.set(lf, idx); idx += lf.length; }
+      for (const cd of centralDirs) { out.set(cd, idx); idx += cd.length; }
+      out.set(end, idx); idx += end.length;
+
+      return new Blob([out], { type: 'application/zip' });
+    }
+
+    // Prepare file list and download ZIP
+    document.getElementById('download-all').addEventListener('click', async () => {
+      // collect files
+      const files = [];
+      // Text files
+      for (const name of ['ashravan.txt','dilemma.json','about.md','pelican.svg','restaurant.json','prediction.json','LICENSE']) {
+        const content = fileContents[name] || fileContents[name.replace('\\n','')];
+        const data = strToUint8Array(content);
+        files.push({ name, data });
+      }
+      // index.html: use current document outerHTML for an accurate copy
+      const indexHtml = '<!doctype html>\n' + document.documentElement.outerHTML;
+      files.push({ name: 'index.html', data: strToUint8Array(indexHtml) });
+
+      // about.md and LICENSE already included
+
+      // include uid.txt if uploaded
+      if (uploadedUid !== null) {
+        files.push({ name: 'uid.txt', data: strToUint8Array(uploadedUid) });
+      }
+
+      // build ZIP (store only)
+      try {
+        const zipBlob = makeZip(files);
+        const url = URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'github-pages-files.zip';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      } catch (err) {
+        alert('Failed to create ZIP: ' + err);
+      }
+    });
+
+    // Preload a default preview
+    document.getElementById('preview-btn').click();
+  </script>
+</body>
+</html>
